@@ -7,6 +7,21 @@ apt-get -y upgrade > /dev/null 2>&1
 echo install omxplayer
 sudo apt-get install -y omxplayer > /dev/null 2>&1
 
+echo install sshpass
+sudo apt-get install -y sshpass > /dev/null 2>&1
+
+echo install ssmtp
+sudo apt-get install -y ssmtp > /dev/null 2>&1
+
+echo clean
+sudo apt-get clean > /dev/null 2>&1
+
+echo remove default pi password warning
+sudo rm /etc/profile.d/sshpwd.sh
+
+echo hush login
+touch /home/pi/.hushlogin
+
 echo create stream service
 start_stream ()
 {
@@ -28,4 +43,4 @@ sudo systemctl daemon-reload
 sudo systemctl enable stream.service > /dev/null 2>&1
 }
 
-echo start stream ; start_stream
+start_stream
