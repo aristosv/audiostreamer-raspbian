@@ -1,26 +1,26 @@
 echo update
-sudo apt-get update > /dev/null 2>&1
+sudo apt-get update
 
 echo upgrade
-sudo apt-get -y upgrade > /dev/null 2>&1
+sudo apt-get -y upgrade
 
 echo install omxplayer
-sudo apt-get install -y omxplayer > /dev/null 2>&1
+sudo apt-get install -y omxplayer
 
 echo install sshpass
-sudo apt-get install -y sshpass > /dev/null 2>&1
+sudo apt-get install -y sshpass
 
 echo install ssmtp
-sudo apt-get install -y ssmtp > /dev/null 2>&1
+sudo apt-get install -y ssmtp
 
 echo clean
-sudo apt-get clean > /dev/null 2>&1
+sudo apt-get clean
 
 echo set timezone
 sudo timedatectl set-timezone Asia/Nicosia
 
 echo remove default pi password warning
-sudo rm /etc/profile.d/sshpwd.sh > /dev/null 2>&1
+sudo rm /etc/profile.d/sshpwd.sh
 
 echo hush login
 touch /home/pi/.hushlogin
