@@ -1,0 +1,24 @@
+echo install omxplayer
+sudo apt-get install -y omxplayer
+
+echo create stream service
+start_stream ()
+{
+sudo bash -c 'cat > /etc/systemd/system/stream.service' << 'EOL'
+[Unit]
+Description=start stream
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "omxplayer https://radio.bbxmd.com/radio/8000/radio.mp3?1550345344"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+sudo systemctl enable stream.service > /dev/null 2>&1
+}
+
+echo start stream ; start_stream
