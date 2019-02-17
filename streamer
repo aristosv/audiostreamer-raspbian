@@ -1,4 +1,3 @@
-echo create stream service
 start_stream ()
 {
 sudo bash -c 'cat > /etc/systemd/system/stream.service' << 'EOL'
@@ -7,6 +6,7 @@ Description=start stream
 After=network.target
 
 [Service]
+Environment=streamurl=https://radio.bbxmd.com/radio/8000/radio.mp3?1550345344
 ExecStart=/bin/bash -c "omxplayer $streamurl"
 Restart=always
 
@@ -18,4 +18,4 @@ sudo systemctl daemon-reload
 sudo systemctl enable stream.service > /dev/null 2>&1
 }
 
-start_stream
+echo create stream ; start_stream
