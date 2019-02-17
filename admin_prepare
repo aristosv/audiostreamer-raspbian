@@ -20,7 +20,7 @@ echo set timezone
 sudo timedatectl set-timezone Asia/Nicosia
 
 echo remove default pi password warning
-sudo rm /etc/profile.d/sshpwd.sh
+sudo rm /etc/profile.d/sshpwd.sh > /dev/null 2>&1
 
 echo hush login
 touch /home/pi/.hushlogin
