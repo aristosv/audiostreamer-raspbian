@@ -1,5 +1,11 @@
+echo updating
+apt-get update > /dev/null 2>&1
+
+echo upgrading
+apt-get -y upgrade > /dev/null 2>&1
+
 echo install omxplayer
-sudo apt-get install -y omxplayer
+sudo apt-get install -y omxplayer > /dev/null 2>&1
 
 echo create stream service
 start_stream ()
@@ -10,7 +16,8 @@ Description=start stream
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "omxplayer https://radio.bbxmd.com/radio/8000/radio.mp3?1550345344"
+Environment=streamurl=https://radio.bbxmd.com/radio/8000/radio.mp3?1550345344
+ExecStart=/bin/bash -c "omxplayer $streamurl"
 Restart=always
 
 [Install]
