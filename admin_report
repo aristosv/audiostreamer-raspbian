@@ -19,8 +19,6 @@ Local IP: $(hostname -I)
 -----------------------------------
 Public IP: $(/usr/bin/curl -s http://whatismyip.akamai.com/)
 -----------------------------------
-Stream: $(sudo /usr/lib/dbuscontrol.sh getsource)
------------------------------------
 EOF
 { echo Subject: $(cat /etc/hostname) Report; cat /tmp/report.log; } | sudo ssmtp $emailaddress
 sudo rm /tmp/report.log
