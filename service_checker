@@ -11,6 +11,7 @@ elif [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 502 ]
   (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp $emailaddress
 else
  echo unknown status
+ sudo systemctl restart stream.service
  (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown")  | ssmtp $emailaddress
 fi
 EOL
