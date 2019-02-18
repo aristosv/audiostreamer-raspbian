@@ -1,22 +1,18 @@
 check_stream_script ()
 {
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
-while true
- do
-  if [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 200 ]
-   then
-    echo stream is up
-  elif [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 502 ]
-   then
-    echo stream is down
-    sudo systemctl restart stream.service
-    (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp $emailaddress
-  else
-   echo unknown status
-   (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown")  | ssmtp $emailaddress
-  fi
- sleep 10
-done
+if [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 200 ]
+ then
+  echo stream is up
+elif [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 502 ]
+ then
+  echo stream is down
+  sudo systemctl restart stream.service
+  (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp $emailaddress
+else
+ echo unknown status
+ (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown")  | ssmtp $emailaddress
+fi
 EOL
 
 sudo chmod +x /usr/local/bin/checkstream
@@ -30,7 +26,7 @@ Description=check stream
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "/usr/local/bin/checkstream"
+ExecStart=/bin/bash -c "while true; do /usr/local/bin/checkstream; sleep 10; done"
 Restart=always
 
 [Install]
