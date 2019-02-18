@@ -1,0 +1,41 @@
+check_stream_script ()
+{
+sudo bash -c 'cat > /usr/local/checkstream' << 'EOL'
+while true
+ do
+  if [[ $(sudo /usr/lib/dbuscontrol.sh getsource) != *"https"* ]]
+   then
+    echo Stream on $HOSTNAME is offline
+    sudo systemctl restart stream.service
+    (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp $email
+   else
+    echo Stream on $HOSTNAME is online
+  fi
+ sleep 10
+done
+EOL
+
+chmod +x /usr/local/checkstream
+}
+
+check_stream_service ()
+{
+sudo bash -c 'cat > /etc/systemd/system/checkstream.service' << 'EOL'
+[Unit]
+Description=check stream
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "/usr/local/checkstream"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+sudo systemctl enable checkstream.service > /dev/null 2>&1
+}
+
+echo check stream script ; check_stream_script
+echo check stream service ; check_stream_service
