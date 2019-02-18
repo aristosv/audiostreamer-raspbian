@@ -1,6 +1,6 @@
 check_stream_script ()
 {
-sudo bash -c 'cat > /usr/local/checkstream' << 'EOL'
+sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
 while true
  do
   if [[ $(sudo /usr/lib/dbuscontrol.sh getsource) != *"https"* ]]
@@ -15,7 +15,7 @@ while true
 done
 EOL
 
-sudo chmod +x /usr/local/checkstream
+sudo chmod +x /usr/local/bin/checkstream
 }
 
 check_stream_service ()
@@ -26,7 +26,7 @@ Description=check stream
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "/usr/local/checkstream"
+ExecStart=/bin/bash -c "/usr/local/bin/checkstream"
 Restart=always
 
 [Install]
