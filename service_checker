@@ -3,13 +3,17 @@ check_stream_script ()
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
 while true
  do
-  if [[ $(sudo /usr/lib/dbuscontrol.sh getsource) != *"https"* ]]
+  if [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 200 ]
    then
-    echo Stream on $HOSTNAME is offline
+    echo stream is up
+  elif [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 502 ]
+   then
+    echo stream is down
     sudo systemctl restart stream.service
-    (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp $email
-   else
-    echo Stream on $HOSTNAME is online
+    (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp aristos@aristos.net
+  else
+   echo unknown status
+   (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown")  | ssmtp aristos@aristos.net
   fi
  sleep 10
 done
