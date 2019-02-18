@@ -1,10 +1,10 @@
 check_stream_script ()
 {
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
-if [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 200 ]
+if [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 200 ]
  then
   echo stream is up
-elif [ $(curl -s --head -w %{http_code} $streamurl -o /tmp/stream.log) -eq 502 ]
+elif [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 502 ]
  then
   echo stream is down
   sudo systemctl restart stream.service
