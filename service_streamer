@@ -6,7 +6,7 @@ Description=start stream
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "omxplayer streamurl"
+ExecStart=/bin/bash -c "omxplayer $streamurl"
 Restart=always
 
 [Install]
