@@ -10,10 +10,10 @@ while true
    then
     echo stream is down
     sudo systemctl restart stream.service
-    (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp aristos@aristos.net
+    (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline")  | ssmtp $emailaddress
   else
    echo unknown status
-   (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown")  | ssmtp aristos@aristos.net
+   (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown")  | ssmtp $emailaddress
   fi
  sleep 10
 done
