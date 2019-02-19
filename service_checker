@@ -1,7 +1,7 @@
 check_stream_script ()
 {
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
-if [ $(curl -s --head -w %{http_code} https://radio.bbxmd.com/radio/8000/radio.mp3?1550392000 -o /dev/null) -eq 200 ]
+if [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 200 ]
  then
   echo stream is up
 
@@ -18,7 +18,7 @@ if [ $(curl -s --head -w %{http_code} https://radio.bbxmd.com/radio/8000/radio.m
    sudo systemctl enable stream.service > /dev/null 2>&1
  fi
 
-elif [ $(curl -s --head -w %{http_code} https://radio.bbxmd.com/radio/8000/radio.mp3?1550392000 -o /dev/null) -eq 502 ]
+elif [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 502 ]
  then
   echo stream is down
 
