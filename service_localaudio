@@ -6,7 +6,7 @@ Description=local audio service
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "while true ; do for audio in $(ls /home/pi/media/audio/* | shuf); do omxplayer --no-keys --no-osd $audio; done; done"
+ExecStart=/bin/bash -c "while true ; do for audio in $(ls /home/pi/media/* | shuf); do omxplayer --no-keys --no-osd $audio; done; done"
 Restart=always
 
 [Install]
