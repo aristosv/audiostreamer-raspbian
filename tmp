@@ -1,16 +1,14 @@
 if [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 200 ]
  then
- 
   echo stream is up
   if [ $(sudo systemctl is-active --quiet localaudio.service) ]
    then
-    sudo systemctl stop localaudio.service
-	sudo systemctl start stream.service
-   fi
+   sudo systemctl stop localaudio.service
+   sudo systemctl start stream.service
+  fi
    
 elif [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 502 ]
  then
- 
   echo stream is down
   if [ $(sudo systemctl is-active --quiet stream.service)
    sudo systemctl stop stream.service
@@ -19,8 +17,6 @@ elif [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 502 ]
   fi
    
 else
-
  echo stream status is unknown
  (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown") | ssmtp $emailaddress
- 
 fi
