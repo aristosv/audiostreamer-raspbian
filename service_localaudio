@@ -1,0 +1,19 @@
+service_localaudio ()
+{
+sudo bash -c 'cat > /etc/systemd/system/localaudio.service' << 'EOL'
+[Unit]
+Description=local audio service
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "while true ; do for audio in $(ls /home/pi/media/audio/* | shuf); do omxplayer --no-keys --no-osd $audio; done; done"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+}
+
+echo create local audio service ; service_localaudio
