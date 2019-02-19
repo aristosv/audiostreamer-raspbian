@@ -1,5 +1,7 @@
 expand_filesystem ()
 {
+#!/bin/bash
+
 sudo sed -i '$i/home/pi/startup' /etc/rc.local
 sudo bash -c 'cat > /home/pi/startup' << 'EOL'
 sudo raspi-config --expand-rootfs
