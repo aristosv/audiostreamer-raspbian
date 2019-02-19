@@ -1,21 +1,23 @@
+#!/bin/bash
+
 echo update
-sudo apt-get update > /dev/null 2>&1
+sudo apt-get update
 
 echo upgrade
-sudo apt-get -y upgrade > /dev/null 2>&1
+sudo apt-get -y upgrade
 
 echo install omxplayer
-sudo apt-get install -y omxplayer > /dev/null 2>&1
+sudo apt-get install -y omxplayer
 
 echo install dbuscontrol
-sudo wget --no-check-certificate https://raw.githubusercontent.com/popcornmix/omxplayer/master/dbuscontrol.sh -P /usr/lib/ > /dev/null 2>&1
+sudo wget --no-check-certificate https://raw.githubusercontent.com/popcornmix/omxplayer/master/dbuscontrol.sh -P /usr/lib/
 sudo chmod +x /usr/lib/dbuscontrol.sh
 
 echo install sshpass
-sudo apt-get install -y sshpass > /dev/null 2>&1
+sudo apt-get install -y sshpass
 
 echo install ssmtp
-sudo apt-get install -y ssmtp > /dev/null 2>&1
+sudo apt-get install -y ssmtp
 
 echo clean
 sudo apt-get clean
