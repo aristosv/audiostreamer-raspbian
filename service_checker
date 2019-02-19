@@ -1,18 +1,39 @@
 check_stream_script ()
 {
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
-if [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 200 ]
+if [ $(curl -s --head -w %{http_code} https://radio.bbxmd.com/radio/8000/radio.mp3?1550392000 -o /dev/null) -eq 200 ]
  then
   echo stream is up
-elif [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 502 ]
+
+ if [ $(sudo systemctl is-active localaudio.service) == active ]
+  then
+   echo stopping local audio
+   sudo systemctl stop localaudio.service
+   echo disabling local audio
+   sudo systemctl disable localaudio.service > /dev/null 2>&1
+
+   echo starting stream
+   sudo systemctl start stream.service
+   echo enabling stream
+   sudo systemctl enable stream.service > /dev/null 2>&1
+ fi
+
+elif [ $(curl -s --head -w %{http_code} https://radio.bbxmd.com/radio/8000/radio.mp3?1550392000 -o /dev/null) -eq 502 ]
  then
   echo stream is down
-  sudo systemctl restart stream.service
-  (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is offline") | ssmtp $emailaddress
-else
- echo unknown status
- sudo systemctl restart stream.service
- (echo "Subject: Stream Alert - $HOSTNAME"; echo "Stream on $HOSTNAME is unknown") | ssmtp $emailaddress
+
+ if [ $(sudo systemctl is-active localaudio.service) == inactive ]
+  then
+   echo starting local audio
+   sudo systemctl start localaudio.service
+   echo enabling local audio
+   sudo systemctl enable localaudio.service > /dev/null 2>&1
+
+   echo stopping stream
+   sudo systemctl stop stream.service
+   echo disabling stream
+   sudo systemctl disable stream.service > /dev/null 2>&1
+ fi
 fi
 EOL
 
