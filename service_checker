@@ -1,6 +1,8 @@
 check_stream_script ()
 {
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
+#!/bin/bash
+
 if [ $(curl -s --head -w %{http_code} $streamurl -o /dev/null) -eq 200 ]
  then
   echo stream is up
