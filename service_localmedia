@@ -2,7 +2,7 @@ service_localmedia ()
 {
 sudo bash -c 'cat > /etc/systemd/system/localmedia.service' << 'EOL'
 [Unit]
-Description=service stream local
+Description=local media
 After=network.target
 
 [Service]
