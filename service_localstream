@@ -1,0 +1,19 @@
+service_localstream ()
+{
+sudo bash -c 'cat > /etc/systemd/system/localstream.service' << 'EOL'
+[Unit]
+Description=local stream
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "omxplayer $localstreamurl"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+}
+
+echo creating service localstream ; service_localstream
