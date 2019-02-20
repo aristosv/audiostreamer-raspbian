@@ -1,0 +1,19 @@
+service_relaystream ()
+{
+sudo bash -c 'cat > /etc/systemd/system/relaystream.service' << 'EOL'
+[Unit]
+Description=relay stream
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "omxplayer $relaystreamurl"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+}
+
+echo creating service relaystream ; service_relaystream
