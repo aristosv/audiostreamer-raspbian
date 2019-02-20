@@ -22,7 +22,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
    sudo systemctl disable localstream.service > /dev/null 2>&1   
  fi
  
- if [ $(sudo systemctl is-active relaystream.service) == inactive ]
+ if [ $(sudo systemctl is-active relaystream.service) !== active ]
   then
    echo starting relay stream
    sudo systemctl start relaystream.service
@@ -42,7 +42,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
    sudo systemctl disable relaystream.service > /dev/null 2>&1   
  fi
  
- if [ $(sudo systemctl is-active localstream.service) == inactive ]
+ if [ $(sudo systemctl is-active localstream.service) !== active ]
   then
    echo starting local stream
    sudo systemctl start localstream.service
@@ -76,7 +76,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ] &&
    sudo systemctl disable localstream.service > /dev/null 2>&1   
  fi
  
- if [ $(sudo systemctl is-active localmedia.service) == active ]
+ if [ $(sudo systemctl is-active localmedia.service) !== active ]
   then
    echo starting local media
    sudo systemctl start localmedia.service
