@@ -37,7 +37,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
 fi
 
 # operations if relay stream is down
-if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
+if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -ne 200 ]
  then
   echo relay stream url is down
 
@@ -70,7 +70,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
 fi
 
 # operations if relay and local streams are down
-if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ] && [ $(curl -s --head -w %{http_code} $localstreamurl -o /dev/null) -eq 502 ]
+if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -ne 200 ] && [ $(curl -s --head -w %{http_code} $localstreamurl -o /dev/null) -ne 200 ]
  then
   echo relay and local streams are down
   
