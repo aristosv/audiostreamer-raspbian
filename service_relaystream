@@ -13,7 +13,6 @@ Restart=always
 WantedBy=multi-user.target
 EOL
 
-sudo systemctl enable relaystream.service > /dev/null 2>&1
 sudo systemctl daemon-reload
 }
 
