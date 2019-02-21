@@ -40,7 +40,6 @@ fi
 if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
  then
   echo relay stream url is down
-  (echo "Subject: Stream Alert - $HOSTNAME"; echo "Relay Stream on $HOSTNAME is down") | ssmtp $emailaddress
 
  if [ $(sudo systemctl is-active relaystream.service) = active ]
   then
@@ -74,7 +73,6 @@ fi
 if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ] && [ $(curl -s --head -w %{http_code} $localstreamurl -o /dev/null) -eq 502 ]
  then
   echo relay and local streams are down
-  (echo "Subject: Stream Alert - $HOSTNAME"; echo "Relay and Local Streams on $HOSTNAME are down") | ssmtp $emailaddress
   
  if [ $(sudo systemctl is-active relaystream.service) = active ]
   then
