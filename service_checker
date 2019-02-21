@@ -8,7 +8,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
  then
   echo relay stream url is up
  
- if [ $(sudo systemctl is-active localstream.service) == active ]
+ if [ $(sudo systemctl is-active localstream.service) = active ]
   then
    echo stopping local stream service
    sudo systemctl stop localstream.service
@@ -17,7 +17,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
    echo local stream service is not active
  fi
 
- if [ $(sudo systemctl is-active localmedia.service) == active ]
+ if [ $(sudo systemctl is-active localmedia.service) = active ]
   then
    echo stopping local media service
    sudo systemctl stop localmedia.service
@@ -26,7 +26,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
    echo local media service is not active  
  fi
  
- if [ $(sudo systemctl is-active relaystream.service) !== active ]
+ if [ $(sudo systemctl is-active relaystream.service) != active ]
   then
    echo starting relay stream service
    sudo systemctl restart relaystream.service
@@ -41,7 +41,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
  then
   echo relay stream url is down
 
- if [ $(sudo systemctl is-active relaystream.service) == active ]
+ if [ $(sudo systemctl is-active relaystream.service) = active ]
   then
    echo stoppping relay stream service
    sudo systemctl stop relaystream.service
@@ -50,7 +50,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
    echo relay stream service is not active  
  fi
  
- if [ $(sudo systemctl is-active localmedia.service) == active ]
+ if [ $(sudo systemctl is-active localmedia.service) = active ]
   then
    echo stopping local media service
    sudo systemctl stop localmedia.service
@@ -59,7 +59,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ]
    echo local media service is not active  
  fi
  
- if [ $(sudo systemctl is-active localstream.service) !== active ]
+ if [ $(sudo systemctl is-active localstream.service) != active ]
   then
    echo starting local stream service
    sudo systemctl restart localstream.service
@@ -74,7 +74,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ] &&
  then
   echo relay and local streams are down
   
- if [ $(sudo systemctl is-active relaystream.service) == active ]
+ if [ $(sudo systemctl is-active relaystream.service) = active ]
   then
    echo stoppping relay stream service
    sudo systemctl stop relaystream.service
@@ -83,7 +83,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ] &&
    echo relay stream service is not active  
  fi
  
- if [ $(sudo systemctl is-active localstream.service) == active ]
+ if [ $(sudo systemctl is-active localstream.service) = active ]
   then
    echo stopping local stream service
    sudo systemctl stop localstream.service
@@ -92,7 +92,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 502 ] &&
    echo local stream service is not active  
  fi
  
- if [ $(sudo systemctl is-active localmedia.service) !== active ]
+ if [ $(sudo systemctl is-active localmedia.service) != active ]
   then
    echo starting local media
    sudo systemctl restart localmedia.service
