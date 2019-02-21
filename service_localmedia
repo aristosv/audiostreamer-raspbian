@@ -7,7 +7,6 @@ After=network.target
 
 [Service]
 ExecStart=/bin/bash -c "while true ; do for audio in $(ls $localmediapath/* | shuf); do omxplayer --no-keys --no-osd $audio; done; done"
-Restart=always
 
 [Install]
 WantedBy=multi-user.target
