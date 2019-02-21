@@ -7,7 +7,6 @@ After=network.target
 
 [Service]
 ExecStart=/bin/bash -c "omxplayer $localstreamurl"
-Restart=always
 
 [Install]
 WantedBy=multi-user.target
