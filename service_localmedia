@@ -6,7 +6,7 @@ Description=local media
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "while true ; do for audio in $(ls $localmediapath/* | shuf); do omxplayer --no-keys --no-osd $audio; done; done"
+ExecStart=/bin/bash -c "omxplayer $(ls $localmediapath/* | shuf)"
 
 [Install]
 WantedBy=multi-user.target
