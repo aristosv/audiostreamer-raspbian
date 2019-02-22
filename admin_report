@@ -1,6 +1,8 @@
 report_script ()
 {
 sudo bash -c 'cat > /usr/local/bin/report' << 'EOL'
+#!/bin/bash
+
 cat >/tmp/report.log <<EOF
 -----------------------------------
 Host Name: $(cat /etc/hostname)
