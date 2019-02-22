@@ -3,8 +3,11 @@ check_stream_script ()
 sudo bash -c 'cat > /usr/local/bin/checkstream' << 'EOL'
 #!/bin/bash
 
+relaystream=$relaystreamurl
+localstream=$localstreamurl
+
 # operations if relay stream is up
-if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
+if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -eq 200 ]
  then
   echo relay stream url is up
   
@@ -37,7 +40,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -eq 200 ]
 fi
 
 # operations if relay stream is down and local stream is up
-if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -ne 200 ] && [ $(curl -s --head -w %{http_code} $localstreamurl -o /dev/null) -eq 200 ]
+if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -ne 200 ] && [ $(curl -s --head -w %{http_code} $localstream -o /dev/null) -eq 200 ]
  then
   echo relay stream url is down and localstream url is up
 
@@ -70,7 +73,7 @@ if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -ne 200 ] &&
 fi
 
 # operations if both relay stream and local stream are down
-if [ $(curl -s --head -w %{http_code} $relaystreamurl -o /dev/null) -ne 200 ] && [ $(curl -s --head -w %{http_code} $localstreamurl -o /dev/null) -ne 200 ]
+if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -ne 200 ] && [ $(curl -s --head -w %{http_code} $localstream -o /dev/null) -ne 200 ]
  then
   echo both relay stream and local stream are down
 
