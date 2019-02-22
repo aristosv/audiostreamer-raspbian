@@ -10,16 +10,16 @@ localstream=$localstreamurl
 if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -eq 200 ]
  then
   echo relay stream url is up
-  
+
  if [ $(sudo systemctl is-active relaystream.service) != active ]
   then
    echo starting relay stream service
    sudo systemctl restart relaystream.service
    sudo systemctl enable relaystream.service > /dev/null 2>&1
   else
-   echo relay stream service is active  
+   echo relay stream service is active
  fi
- 
+
  if [ $(sudo systemctl is-active localstream.service) = active ]
   then
    echo stopping local stream service
@@ -35,7 +35,7 @@ if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -eq 200 ]
    sudo systemctl stop localmedia.service
    sudo systemctl disable localmedia.service > /dev/null 2>&1
   else
-   echo local media service is not active  
+   echo local media service is not active
  fi
 fi
 
@@ -51,7 +51,7 @@ if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -ne 200 ] && [ 
    sudo systemctl enable localstream.service > /dev/null 2>&1
   else
    echo local stream service is active
- fi  
+ fi
 
  if [ $(sudo systemctl is-active relaystream.service) = active ]
   then
@@ -59,7 +59,7 @@ if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -ne 200 ] && [ 
    sudo systemctl stop relaystream.service
    sudo systemctl disable relaystream.service > /dev/null 2>&1
   else
-   echo relay stream service is not active  
+   echo relay stream service is not active
  fi
 
  if [ $(sudo systemctl is-active localmedia.service) = active ]
@@ -68,7 +68,7 @@ if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -ne 200 ] && [ 
    sudo systemctl stop localmedia.service
    sudo systemctl disable localmedia.service > /dev/null 2>&1
   else
-   echo local media service is not active  
+   echo local media service is not active
  fi
 fi
 
@@ -83,7 +83,7 @@ if [ $(curl -s --head -w %{http_code} $relaystream -o /dev/null) -ne 200 ] && [ 
    sudo systemctl restart localmedia.service
    sudo systemctl enable localmedia.service > /dev/null 2>&1
   else
-   echo local media service is active  
+   echo local media service is active
  fi
 
  if [ $(sudo systemctl is-active relaystream.service) = active ]
