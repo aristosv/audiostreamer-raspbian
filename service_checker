@@ -128,5 +128,5 @@ sudo systemctl daemon-reload
 sudo systemctl enable checkstream.service > /dev/null 2>&1
 }
 
-echo check stream script ; check_stream_script
-echo check stream service ; check_stream_service
+echo creating check stream script ; check_stream_script
+echo creating check stream service ; check_stream_service
