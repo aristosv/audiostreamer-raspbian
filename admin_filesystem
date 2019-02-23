@@ -13,4 +13,4 @@ EOL
 sudo chmod +x /usr/local/bin/startup
 }
 
-echo expand filesystem ; expand_filesystem
+echo creating filesystem script ; expand_filesystem
