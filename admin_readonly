@@ -1,6 +1,3 @@
 #!/bin/bash
 
-apt-get install -y git > /dev/null 2>&1
-git clone https://github.com/aristosv/root-ro.git
-chmod +x /home/pi/root-ro/install.sh
-/home/pi/root-ro/install.sh
+bash <(wget --no-check-certificate -qO- https://raw.githubusercontent.com/aristosv/raspbian-readonly/master/admin_readonly)
