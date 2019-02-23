@@ -1,6 +1,9 @@
 #!/bin/bash
 
-sudo apt-get install -y git
+sudo su
+apt-get -y install git
+cd /home/pi
 git clone https://github.com/JasperE84/root-ro.git
-chmod +x /home/pi/root-ro/install.sh
-sudo /home/pi/root-ro/install.sh
+cd root-ro
+chmod +x install.sh
+./install.sh
