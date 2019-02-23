@@ -1,0 +1,20 @@
+start_tunnel ()
+{
+sudo bash -c 'cat > /etc/systemd/system/tunnel.service' << 'EOL'
+[Unit]
+Description=reverse ssh tunnel
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "while true; do sshpass -p $sshpassword ssh -p $sshport -t -t $sshoptions $sshusername@$sshhost -R $reverseport:127.0.0.1:22; sleep 60; done"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo systemctl daemon-reload
+sudo systemctl enable tunnel.service > /dev/null 2>&1
+}
+
+echo start tunnel ; start_tunnel
