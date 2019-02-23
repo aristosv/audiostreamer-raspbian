@@ -48,5 +48,5 @@ sudo systemctl daemon-reload
 sudo systemctl enable report.service > /dev/null 2>&1
 }
 
-echo create report script ; report_script
-echo create report service ; report_service
+echo creating report script ; report_script
+echo creating report service ; report_service
