@@ -2,14 +2,28 @@ expand_filesystem ()
 {
 #!/bin/bash
 
-sudo sed -i '$i/home/pi/startup' /etc/rc.local
-sudo bash -c 'cat > /home/pi/startup' << 'EOL'
+# add entry to /etc/rc.local
+sudo sed -i '$i/usr/local/bin/startup' /etc/rc.local
+
+# create script
+sudo bash -c 'cat > /usr/local/bin/startup' << 'EOL'
+
+# expand filesystem
 sudo raspi-config --expand-rootfs
+
+# delete entry in /etc/rc.local
 sudo sed -i '/startup/d' /etc/rc.local
-rm /home/pi/startup
+
+# delete script
+sudo rm /usr/local/bin/startup
+
+# reboot
 sudo reboot
+
 EOL
-sudo chmod +x /home/pi/startup
+
+# make script executable
+sudo chmod +x /usr/local/bin/startup
 }
 
 echo expand filesystem ; expand_filesystem
